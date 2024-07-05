@@ -1,0 +1,140 @@
+$font-stack: 'Manrope', Arial, sans-serif;
+$base-color: #fefae0;
+$text-color: #333;
+$border-color: #ddd;
+$button-color: #90be6d; 
+$button-gradient-start: #f94144; 
+$button-gradient-end: #43aa8b; 
+$button-hover-shadow: rgba(0, 0, 0, 0.3); 
+
+$dice-size: 50px;
+$dice-sprite-positions: (
+  1: 0,
+  2: -$dice-size,
+  3: -2*$dice-size,
+  4: -3*$dice-size,
+  5: -4*$dice-size,
+  6: -5*$dice-size
+);
+:root {
+  --base-color: #{$base-color};
+}
+
+
+@mixin button-style {
+  background-color: $button-color;
+  background-image: linear-gradient(to right, $button-gradient-start, $button-gradient-end);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin: 0 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  &:hover, &:focus {
+    background-image: linear-gradient(to right, $button-gradient-end, $button-gradient-start);
+    box-shadow: 0 4px 8px $button-hover-shadow;
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    background-image: none;
+    color: #666666;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+
+body {
+  font-family: $font-stack;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100vh;
+  margin: 0;
+  background-color: $base-color;
+  flex-direction: column;
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; 
+}
+
+#base{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color:#fefae0a9;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+}
+
+.display {
+  padding: 10px;
+  border-bottom: 1px solid $border-color; 
+  margin-bottom: 20px;
+  background: none; 
+  width: 85vw; 
+  max-width: 1200px; 
+  display: flex;
+  justify-content: center;
+}
+
+.dice {
+  width: $dice-size;
+  height: $dice-size;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: url('../images/dice_sprite.png') no-repeat;
+  background-size: 600% 100%; 
+
+  @each $face, $position in $dice-sprite-positions {
+    &-#{$face} {
+      background-position: $position 0;
+    }
+  }
+}
+
+#buttons {
+  margin-top: 20px;
+}
+
+button {
+  @include button-style;
+}
+
+#totalDisplay {
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  color: $text-color;
+  margin-top: 20px;
+}
+
+#currentDisplay {
+  display: flex;
+  text-align: left;
+  justify-content: space-evenly;
+  flex-direction: column;
+  border-bottom: none;
+}
+
+#diceDisplay{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+footer {
+  background-color: #277da1;
+  width: 100%;
+  color: white;
+  text-align: center;
+}

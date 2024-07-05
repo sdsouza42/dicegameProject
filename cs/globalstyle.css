@@ -1,0 +1,128 @@
+:root {
+  --base-color: #fefae0;
+}
+
+body {
+  font-family: "Manrope", Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100vh;
+  margin: 0;
+  background-color: #fefae0;
+  flex-direction: column;
+}
+
+h2 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+#base {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(254, 250, 224, 0.662745098);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.display {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  background: none;
+  width: 85vw;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
+.dice {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: url("../images/dice_sprite.png") no-repeat;
+  background-size: 600% 100%;
+}
+.dice-1 {
+  background-position: 0 0;
+}
+.dice-2 {
+  background-position: -50px 0;
+}
+.dice-3 {
+  background-position: -100px 0;
+}
+.dice-4 {
+  background-position: -150px 0;
+}
+.dice-5 {
+  background-position: -200px 0;
+}
+.dice-6 {
+  background-position: -250px 0;
+}
+
+#buttons {
+  margin-top: 20px;
+}
+
+button {
+  background-color: #90be6d;
+  background-image: linear-gradient(to right, #f94144, #43aa8b);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  margin: 0 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+button:hover, button:focus {
+  background-image: linear-gradient(to right, #43aa8b, #f94144);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+button:disabled {
+  background-color: #cccccc;
+  background-image: none;
+  color: #666666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#totalDisplay {
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  color: #333;
+  margin-top: 20px;
+}
+
+#currentDisplay {
+  display: flex;
+  text-align: left;
+  justify-content: space-evenly;
+  flex-direction: column;
+  border-bottom: none;
+}
+
+#diceDisplay {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+footer {
+  background-color: #277da1;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+
+/*# sourceMappingURL=globalstyle.css.map */
