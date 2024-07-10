@@ -1,44 +1,53 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Project</title>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="./cs/globalstyle.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="./js/Main.js", defer></script>
-    </head>
-    <body>
-        <h2>Dice Game</h2>
-        <div id="base">
-            <div class="display" id="totalDisplay">
-                <div id="round">
-                    <h5>Round: <span id="roundNumber">0</span></h5>
-                </div>
-                <div id="player">
-                    <h5>Player Score: <span id="playerScore">0</span></h5>
-                </div>
-                <div id="computer">
-                    <h5>AI Score: <span id="computerScore">0</span></h5>
-                </div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./cs/globalstyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./js/Main.js" , defer></script>
+</head>
+
+<body>
+    <h2>Dice Game</h2>
+    <div id="base">
+        <button id="resetButton">Reset Game</button>
+        <div class="display" id="totalDisplay">
+            <div id="round">
+                <h5>Round: <span id="roundNumber">0</span></h5>
             </div>
+            <div id="player">
+                <h5>PLYR Score: <span id="playerScore">0</span></h5>
+            </div>
+            <div id="computer">
+                <h5>COM Score: <span id="computerScore">0</span></h5>
+            </div>
+        </div>
+        <div>
             <div class="display" id="diceDisplay">
                 <div id="dice1" class="dice"></div>
                 <div id="dice2" class="dice"></div>
             </div>
-            <div class="display" id="currentDisplay">
-                <p>Player Rolled: <span id="playerRoll">0</span></p>
-                <p>Computer Rolled: <span id="computerRoll">0</span></p>
+            <div class="display" id="cdiceDisplay">
+                <div id="cdice1" class="dice"></div>
+                <div id="cdice2" class="dice"></div>
             </div>
         </div>
-        
-        <div id="buttons">
-            <button id="rollButton">Roll Dice</button>
-            <button id="resetButton">Reset Game</button>
+        <div class="display" id="currentDisplay">
+            <p>PLYR Rolled: <span id="playerRoll">0</span></p>
+            <p>COM Rolled: <span id="computerRoll">0</span></p>
         </div>
-    </body>
-    <footer>
-        <p>Project - COMP2132</p>
-    </footer>
+    </div>
+    <div id="buttons">
+        <button id="rollButton">Roll PLYR Dice</button>
+        <button id="crollButton">Roll COM Dice</button>
+    </div>
+</body>
+<footer>
+    <p>Project - COMP2132</p>
+</footer>
+
 </html>
