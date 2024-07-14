@@ -15,8 +15,8 @@ class Dice {
 }
 
 let round = 0;
-let tpScore = 0;
-let tcScore = 0;
+let totalplyrScore = 0;
+let totalcomScore = 0;
 const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--base-color').trim();
 
 //create the dice object
@@ -71,32 +71,30 @@ function animateDice(dice1, dice2, dice1Element, dice2Element) {
 function animateDiceRoll(dice) {
     const diceElement = dice[1];
     const diceRoll = dice[0];
-    let i = 0;
-    let startTime;
+    let count = 0;
 
-    function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const progress = timestamp - startTime;
-        if (progress > i * 100) {
+    const intervalId = setInterval(() => {
+        if (count < 10) {
             const randomFace = Math.floor(Math.random() * 6) + 1;
             diceElement.className = `dice dice-${randomFace}`;
-            i++;
-        }
-        if (i < 10) {
-            requestAnimationFrame(step);
+            count++;
         } else {
+            clearInterval(intervalId);
             diceElement.className = `dice dice-${diceRoll}`;
+            // Optional: Add an animation effect when setting the final dice face
+            $(diceElement).animate({
+                opacity: 0.25,
+                opacity: 1
+            }, 1000);
         }
-    }
-
-    requestAnimationFrame(step);
+    }, 100);
 }
 //popup message to declare winner
 function declareWinner() {
     let winnerMessage = 'It\'s a tie!';
-    if (tpScore > tcScore) {
+    if (totalplyrScore > totalcomScore) {
         winnerMessage = 'Congratulations! You won!';
-    } else if (tpScore < tcScore) {
+    } else if (totalplyrScore < totalcomScore) {
         winnerMessage = 'Sorry, the COM won this time.';
     }
     let playAgain = window.confirm(winnerMessage + ' Do you want to play again?');
@@ -107,8 +105,8 @@ function declareWinner() {
 //helper function for resting the game
 function resetGame() {
     round = 0;
-    tpScore = 0;
-    tcScore = 0;
+    totalplyrScore = 0;
+    totalcomScore = 0;
     $('#playerScore').text('PLYR Score: 0');
     $('#computerScore').text('COM Score: 0');
     $('#roundNumber').text('Round: 0');
@@ -121,14 +119,33 @@ function resetGame() {
 }
 //help function for changing the bcolor based on winning or losing
 function updateBackgroundColor() {
-    if (tpScore > tcScore) {
+    if (totalplyrScore > totalcomScore) {
         $('body').css('background-color', '#cdeac0');
-    } else if (tpScore < tcScore) {
+    } else if (totalplyrScore < totalcomScore) {
         $('body').css('background-color', '#ff928b');
     } else {
         $('body').css('background-color', '#efe9ae');
     }
 }
+
+function rollDice(nameText, roundScore, totalScore) {
+    try {
+        $().prop('disabled', true);
+        $().prop('disabled', true);
+        $('#'+nameText.toLowerCase()+'Roll').text(nameText + ' dice is being rolled... ');
+        $('#'+nameText.toLowerCase()+'Roll').text(nameText + 'Rolled: ' + roundScore);
+        $('#'+nameText.toLowerCase()+'Score').text(nameText + 'Score: ' + totalScore);
+        $().prop('disabled', false);
+        $().prop('disabled', false);
+    } catch (error) {
+        $().prop('disabled', false);
+        $().prop('disabled', false);
+        throw error;
+    }
+}
+
+
+
 //rewrite to make it modular, it needs to disbale the ply but and com button according to turn
 //logic for the game controlling ui elements and animations, work around for lack of async/await
 function beginRound(nameText, dice1Element, dice2Element) {
@@ -138,49 +155,44 @@ function beginRound(nameText, dice1Element, dice2Element) {
     try {
         round++;
         $('#roundNumber').text('Round: ' + round);
-        $('#playerRoll').text(nameText + ' dice is being rolled... ');
-        let pScore = intializeRound(dice1Element, dice2Element);
-        console.log(pScore);
+        let score = intializeRound(dice1Element, dice2Element);
+        console.log(score);
         setTimeout(function () {
-            $('#playerRoll').text('PLYR Rolled: ' + pScore);
-            tpScore += pScore;
-            $('#playerScore').text('PLYR Score: ' + tpScore);
-            $('#computerRoll').text('COM dice is being rolled...');
-        }, 1000);
-        setTimeout(function () {
-            let cScore = intializeRound();
-            console.log(cScore);
-            setTimeout(function () {
-                $('#computerRoll').text('COM Rolled: ' + cScore);
-                tcScore += cScore;
-                $('#computerScore').text('COM Score: ' + tcScore);
-
-                if (round < 3) {
-                    $('#resetButton').prop('disabled', false);
-                    $('#rollButton').prop('disabled', false);
-                    $('#rollButton').text(`Roll Dice (${round + 1}/3)`);
-                } else {
-                    $('#resetButton').prop('disabled', true);
-                    $('#rollButton').prop('disabled', true);
-                    $('#rollButton').text('No More Rolls');
-                    updateBackgroundColor();
-                    setTimeout(declareWinner, 1000);
-                }
-                updateBackgroundColor();
-            }, 1000);
-        }, 2500);
+            if (nameText.toLowerCase() === 'plyr') {
+                plyrScore += score;
+                rollDice(nameText, score, totalplyrScore);
+            } else if (nameText.toLowerCase() === 'com') {
+                comScore += score;
+                rollDice(nameText, score, totalcomScore);
+            } else {
+                throw new Error('Invalid player name');
+            }
+        }, 1200);
+        if (round < 3) {
+            $('#resetButton').prop('disabled', false);
+            $('#rollButton').prop('disabled', false);
+            $('#rollButton').text(`Roll Dice (${round + 1}/3)`);
+        } else {
+            $('#rollButton').text('No More Rolls');
+            updateBackgroundColor();
+            setTimeout(declareWinner, 1200);
+        }
+        updateBackgroundColor();
     } catch (error) {
         console.error("An error occurred: ", error);
+    } finally {
         $('#rollButton').prop('disabled', false);
         $('#resetButton').prop('disabled', false);
     }
 }
 //event listeners for the buttons
 $(document).ready(function () {
-    $('#rollButton').click(function () {
-        beginRound();
+    $('#plyrButton').click(function () {
+        beginRound('plyr', $('#dice1'), $('#dice2'));
     });
-
+    $('#comButton').click(function () {
+        beginRound('com', $('#cdice1'), $('#cdice2'));
+    });
     $('#resetButton').click(function () {
         resetGame();
     });
