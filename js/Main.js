@@ -29,6 +29,7 @@ function intializeRound(dice1Element, dice2Element) {
 }
 
 function playRound(dice, score, dice1Element, dice2Element) {
+    isAnimateRoll = false;
     let diceRoll = [dice.getResult(), dice.getResult()];    
     try {
         animateDice(diceRoll[0], diceRoll[1], dice1Element, dice2Element);
@@ -56,37 +57,40 @@ function animateDice(dice1, dice2, dice1Element, dice2Element) {
     let dice_1 = [dice1, dice1Element];
     let dice_2 = [dice2, dice2Element];
     try {
-        animateDiceRoll(dice_1);
-        animateDiceRoll(dice_2);    
+        animateDiceResults(dice_1);
+        animateDiceResults(dice_2);    
     } catch (error) {
         throw error;
     }
 }
+let isAnimateRoll = false;
 //animate the dice roll, using a sprite img for the dice to get familiar with the concept
-function animateDiceRoll(dice) {
-    const diceElement = dice[1];
-    const diceRoll = dice[0];
-    let i = 0;
+function animateDiceRoll(diceElement) {
     let startTime;
 
     function step(timestamp) {
         if (!startTime) startTime = timestamp;
-        const progress = timestamp - startTime;
-        if (progress > i * 100) {
+
+        // As long as isAnimate is true, keep animating
+        if (isAnimateRoll) {
             const randomFace = Math.floor(Math.random() * 6) + 1;
             diceElement.className = `dice dice-${randomFace}`;
-            i++;
-        }
-        if (i < 10) {
             requestAnimationFrame(step);
-        } else {
-            diceElement.className = `dice dice-${diceRoll}`;
         }
     }
 
     requestAnimationFrame(step);
 }
 
+let isAnimateBlink = true;
+
+function animateDiceResults(dice) {
+    const diceElement = dice[1];
+    const diceRoll = dice[0];
+    $(diceElement).fadeOut(50);
+    diceElement.className = `dice dice-${diceRoll}`;
+    $(diceElement).fadeIn(3000);
+}
 
 /*------------------------------------------------------------------------------------------------Main Page functions-------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -97,6 +101,10 @@ let totalcomScore = 0;
 const baseColor = getComputedStyle(document.documentElement).getPropertyValue('--base-color').trim();
 let plyrRoll = 0;
 let comRoll = 0;
+const plyrDice1 = document.getElementById('dice1');
+const plyrDice2 = document.getElementById('dice2');
+const comDice1 = document.getElementById('cdice1');
+const comDice2 = document.getElementById('cdice2');
 
 //popup message to declare winner
 function declareWinner() {
@@ -163,6 +171,7 @@ function beginRound(nameText, dice1Element, dice2Element) {
         $('#resetButton').prop('disabled', true);
         let score = 0;
         score= intializeRound(dice1Element, dice2Element);
+        console.log(score);
         if (nameText.toLowerCase() === 'plyr') {
             recordRound();
             plyrRoll++;
@@ -192,19 +201,52 @@ function beginRound(nameText, dice1Element, dice2Element) {
         $('#resetButton').prop('disabled', false);
     }
 }
+
+
 //event listeners for the buttons
 $(document).ready(function () {
     $('#comButton').prop('disabled', true);
-    $('#plyrButton').click(function () {
-        beginRound('plyr', document.getElementById('dice1'), document.getElementById('dice2'));
+    $('#plyrButton').on('click',function () {
+        beginRound('plyr', plyrDice1, plyrDice2);
         $('#plyrButton').prop('disabled', true);
     });
-    $('#comButton').click(function () {
-        beginRound('com', document.getElementById('cdice1'), document.getElementById('cdice2'));
+    $('#comButton').on('click',function () {
+        beginRound('com', comDice1, comDice2);
         $('#comButton').prop('disabled', true);   
     });
     $('#resetButton').click(function () {
         resetGame();
     });
+
+    $('#plyrButton').on('mouseenter', function () {
+        if ($('#plyrButton').prop('disabled')) {
+            isAnimateRoll = false;
+            return;
+        }
+        isAnimateRoll = true;
+        animateDiceRoll(plyrDice1);
+        animateDiceRoll(plyrDice2);
+        $('#plyrButton').text('Roll');
+    });
+    $('#plyrButton').on('mouseleave', function () {
+        isAnimateRoll = false;
+        $('#plyrButton').text('Roll PLYR Dice');
+    });
+
+    $('#comButton').on('mouseenter', function () {
+        if ($('#comButton').prop('disabled')) {
+            isAnimateRoll = false;
+            return;
+        }
+        isAnimateRoll = true;
+        animateDiceRoll(comDice1);
+        animateDiceRoll(comDice2);
+        $('#comButton').text('Roll');
+    });
+    $('#comButton').on('mouseleave', function () {
+        isAnimateRoll = false;
+        $('#comButton').text('Roll COM Dice');
+    });
+
 });
 
