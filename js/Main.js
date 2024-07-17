@@ -185,6 +185,7 @@ function beginRound(nameText, dice1Element, dice2Element) {
             $('#plyrButton').prop('disabled', false);
             if (round >= 3) {
                 updateBackgroundColor();
+                $('#plyrButton').prop('disabled', true);
                 setTimeout(declareWinner, 1200); 
             }
             //Enable to track number of rolls in the console
