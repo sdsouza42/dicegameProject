@@ -5,7 +5,6 @@
 body {
   font-family: "Manrope", Arial, sans-serif;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
   height: 100vh;
   margin: 0;
@@ -22,15 +21,16 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: center;
   justify-content: center;
   background-color: rgba(254, 250, 224, 0.662745098);
-  border: 1px solid #ddd;
+  border: 1px solid #cecece;
   border-radius: 5px;
 }
 
 .display {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #cecece;
   margin-bottom: 20px;
   background: none;
   width: 85vw;
@@ -72,17 +72,26 @@ h2 {
 }
 
 button {
+  min-width: 120px;
+  max-width: 200px;
+  width: auto;
+  padding: 12px 24px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background-color: #90be6d;
   background-image: linear-gradient(to right, #f94144, #43aa8b);
   color: white;
   border: none;
-  padding: 12px 24px;
   margin: 0 10px;
   border-radius: 30px;
   cursor: pointer;
   font-size: 16px;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 button:hover, button:focus {
   background-image: linear-gradient(to right, #43aa8b, #f94144);
@@ -100,22 +109,70 @@ button:disabled {
 #totalDisplay {
   display: flex;
   text-align: left;
-  flex-direction: column;
+  flex-direction: row;
   color: #333;
   margin-top: 20px;
+  justify-content: space-evenly;
 }
 
 #currentDisplay {
   display: flex;
   text-align: left;
   justify-content: space-evenly;
-  flex-direction: column;
+  flex-direction: row;
   border-bottom: none;
 }
 
+#roundDisplay {
+  text-align: center;
+}
+
 #diceDisplay {
+  padding: 10px;
+  width: 85vw;
+  max-width: 1200px;
   display: flex;
   justify-content: space-evenly;
+}
+
+#cdiceDisplay {
+  padding: 10px;
+  width: 85vw;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#titleDisplay {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#resetDisplay {
+  align-items: center;
+  align-self: center;
+}
+
+#buttonDisplay {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.diceTitle {
+  text-align: center;
 }
 
 footer {
@@ -124,5 +181,3 @@ footer {
   color: white;
   text-align: center;
 }
-
-/*# sourceMappingURL=globalstyle.css.map */

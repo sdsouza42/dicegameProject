@@ -1,7 +1,7 @@
 $font-stack: 'Manrope', Arial, sans-serif;
 $base-color: #fefae0;
 $text-color: #333;
-$border-color: #ddd;
+$border-color: #cecece;
 $button-color: #90be6d; 
 $button-gradient-start: #f94144; 
 $button-gradient-end: #43aa8b; 
@@ -22,17 +22,26 @@ $dice-sprite-positions: (
 
 
 @mixin button-style {
+  min-width: 120px; // Minimum width to ensure text area size
+  max-width: 200px; // Maximum width for larger screens
+  width: auto; // Allows the button to grow/shrink based on content and screen size
+  padding: 12px 24px; // Adjust padding to ensure text is centered
+  display: inline-flex; // Use inline-flex to allow the button to be flexible
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background-color: $button-color;
   background-image: linear-gradient(to right, $button-gradient-start, $button-gradient-end);
   color: white;
   border: none;
-  padding: 12px 24px;
   margin: 0 10px;
   border-radius: 30px;
   cursor: pointer;
   font-size: 16px;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex-grow: 1; // Allows the button to grow to fill the space
+  flex-shrink: 1; // Allows the button to shrink if necessary
 
   &:hover, &:focus {
     background-image: linear-gradient(to right, $button-gradient-end, $button-gradient-start);
@@ -53,7 +62,6 @@ $dice-sprite-positions: (
 body {
   font-family: $font-stack;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
   height: 100vh;
   margin: 0;
@@ -70,6 +78,7 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: center;
   justify-content: center;
   background-color:#fefae0a9;
   border: 1px solid $border-color;
@@ -105,6 +114,7 @@ h2 {
 
 #buttons {
   margin-top: 20px;
+  
 }
 
 button {
@@ -114,22 +124,71 @@ button {
 #totalDisplay {
   display: flex;
   text-align: left;
-  flex-direction: column;
+  flex-direction: row;
   color: $text-color;
   margin-top: 20px;
+  justify-content: space-evenly;
 }
 
 #currentDisplay {
   display: flex;
   text-align: left;
   justify-content: space-evenly;
-  flex-direction: column;
+  flex-direction: row;
   border-bottom: none;
 }
 
+#roundDisplay {
+  text-align: center;
+}
+
 #diceDisplay{
+  padding: 10px;
+  width: 85vw; 
+  max-width: 1200px; 
   display: flex;
   justify-content: space-evenly;
+}
+
+#cdiceDisplay{
+  padding: 10px;
+  width: 85vw; 
+  max-width: 1200px; 
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#titleDisplay{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  //align-self: center;
+}
+
+#resetDisplay{
+  align-items: center;
+  align-self: center;
+}
+
+#buttonDisplay{
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+}
+
+.buttonGroup{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.diceTitle{
+  text-align: center;
 }
 
 footer {

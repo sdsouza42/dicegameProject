@@ -12,28 +12,41 @@
 </head>
 
 <body>
-    <h2>Dice Game</h2>
+    <div id="titleDisplay">
+        <h2>Dice Game</h2>
+    
+    </div>
     <div id="base">
-        <button id="resetButton">Reset Game</button>
-        <div class="display" id="totalDisplay">
+        <div id="roundDisplay">
             <div id="round">
-                <h5>Round: <span id="roundNumber">0</span></h5>
+                <h3>Round: <span id="roundNumber">0</span></h5>
             </div>
-            <div id="player">
-                <h5>PLYR Score: <span id="plyrScore">0</span></h5>
-            </div>
-            <div id="computer">
-                <h5>COM Score: <span id="comScore">0</span></h5>
-            </div>
+            <div class="display" id="totalDisplay">
+                <h4>Total Score</h4>
+                <div id="player">
+                    <h4>PLYR Score: <span id="plyrScore">0</span></h4>
+                </div>
+                <div id="computer">
+                    <h4>COM Score: <span id="comScore">0</span></h4>
+                </div>
+            </div>    
         </div>
         <div>
-            <div class="display" id="diceDisplay">
-                <div id="dice1" class="dice"></div>
-                <div id="dice2" class="dice"></div>
+            <h5 class="diceTitle">PLYR DICE</h5>
+            <div class="display">
+                <div id="diceDisplay">
+                    <div id="dice1" class="dice"></div>
+                    <div id="dice2" class="dice"></div>
+                </div>
             </div>
-            <div class="display" id="cdiceDisplay">
-                <div id="cdice1" class="dice"></div>
-                <div id="cdice2" class="dice"></div>
+            <div>
+                <h5 class="diceTitle">COM DICE</h5>
+                <div class="display">
+                    <div id="cdiceDisplay">
+                        <div id="cdice1" class="dice"></div>
+                        <div id="cdice2" class="dice"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="display" id="currentDisplay">
@@ -41,9 +54,16 @@
             <p>COM Rolled: <span id="comRoll">0</span></p>
         </div>
     </div>
-    <div id="buttons">
-        <button id="plyrButton">Roll PLYR Dice</button>
-        <button id="comButton">Roll COM Dice</button>
+    <div class="buttonGroup">
+        <div id="buttonDisplay">
+            <div id="buttons">
+                <button id="plyrButton">Roll PLYR Dice</button>
+                <button id="comButton">Roll COM Dice</button>
+            </div>
+        </div>
+        <div id="resetDisplay">
+            <button id="resetButton">Reset Game</button>
+        </div>
     </div>
 </body>
 <footer>

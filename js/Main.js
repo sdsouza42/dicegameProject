@@ -89,7 +89,7 @@ function animateDiceResults(dice) {
     const diceRoll = dice[0];
     $(diceElement).fadeOut(50);
     diceElement.className = `dice dice-${diceRoll}`;
-    $(diceElement).fadeIn(3000);
+    $(diceElement).fadeIn(1000);
 }
 
 /*------------------------------------------------------------------------------------------------Main Page functions-------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -126,8 +126,8 @@ function resetGame() {
     round = 0;
     totalplyrScore = 0;
     totalcomScore = 0;
-    $('#playerScore').text('0');
-    $('#computerScore').text('0');
+    $('#plyrScore').text('0');
+    $('#comScore').text('0');
     $('#roundNumber').text('0');
     $('#plyrButton').prop('disabled', false);
     $('#comButton').prop('disabled', true);
@@ -185,7 +185,7 @@ function beginRound(nameText, dice1Element, dice2Element) {
             $('#plyrButton').prop('disabled', false);
             if (round >= 3) {
                 updateBackgroundColor();
-                setTimeout(declareWinner, 1000); 
+                setTimeout(declareWinner, 1200); 
             }
             //Enable to track number of rolls in the console
             // console.log('proll = ' + plyrRoll);
@@ -202,6 +202,21 @@ function beginRound(nameText, dice1Element, dice2Element) {
     }
 }
 
+function focusDice(diceDisplay) {
+    $(diceDisplay).css({
+        'transform': 'scale(1.1)', // Slightly larger size for pop effect
+        'transition': 'transform 0.3s ease', // Smooth transition
+        'box-shadow': '0 0 0 2px #borderColor', // Simulate a border using box-shadow
+        'margin': '-1px' // Adjust margin to compensate for the box-shadow border
+    });
+}
+
+function unfocusDice(diceDisplay) {
+    $(diceDisplay).css({
+        'transform': 'scale(1)', // Reset size
+        'transition': 'transform 0.3s ease' // Smooth transition
+    });
+}
 
 //event listeners for the buttons
 $(document).ready(function () {
@@ -227,10 +242,12 @@ $(document).ready(function () {
         animateDiceRoll(plyrDice1);
         animateDiceRoll(plyrDice2);
         $('#plyrButton').text('Roll');
+        focusDice('#diceDisplay');
     });
     $('#plyrButton').on('mouseleave', function () {
         isAnimateRoll = false;
         $('#plyrButton').text('Roll PLYR Dice');
+        unfocusDice('#diceDisplay');
     });
 
     $('#comButton').on('mouseenter', function () {
@@ -242,11 +259,12 @@ $(document).ready(function () {
         animateDiceRoll(comDice1);
         animateDiceRoll(comDice2);
         $('#comButton').text('Roll');
+        focusDice('#cdiceDisplay');
     });
     $('#comButton').on('mouseleave', function () {
         isAnimateRoll = false;
         $('#comButton').text('Roll COM Dice');
+        unfocusDice('#cdiceDisplay');
     });
 
 });
-
