@@ -1,4 +1,4 @@
-# Simple Dice Game - Static Web Application
+# Simple Dice Game - Web Application
 
 1. Project Description
    A dice game where a user plays against the computer. The user and the computer each roll a pair of dice 3 times. After the third roll of the dice the player with highest score wins.
@@ -11,8 +11,6 @@
 - If the player rolls any other combination of dice other than the ones mentioned above then the players score is the total value of the two dice, eg: player rolls a 3 and 2, player gets a score of 3+2=5
 
 3. Technologies and Resources Used
-   List technologies (with version numbers), API's, icons, fonts, images, media or data sources, and other resources that were used.
-
 HTML, CSS, JavaScript
 SCSS
 jQuery 3.7.1
